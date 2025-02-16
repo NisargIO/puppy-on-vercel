@@ -36,7 +36,9 @@ export async function GET(request: NextRequest) {
   const browser = await getBrowser();
 
   const page = await browser.newPage();
-  await page.goto("https://example.com");
+  // Grab url from request
+  const url = request.nextUrl.searchParams.get("url");
+  await page.goto(url);
   const pdf = await page.pdf();
   await browser.close();
   return new NextResponse(pdf, {
