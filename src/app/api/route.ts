@@ -37,7 +37,8 @@ export async function GET(request: NextRequest) {
 
   const page = await browser.newPage();
   // Grab url from request
-  const url = request.nextUrl.searchParams.get("url");
+  let url = request.nextUrl.searchParams.get("url");
+  url ??= "https://example.com";
   await page.goto(url);
   const pdf = await page.pdf();
   await browser.close();
